@@ -12,20 +12,22 @@ public class SGEntity {
 
     public enum DebugDrawingStyle
     {
+        //Retangulo preenchido
         FILLED,
         OUTLINE
+        //Somente as bordas do retangulo
     };
 
-    protected RectF             mBBoxPadding = new RectF();
-    protected RectF             mBoundingBox = new RectF();
-    private String				mCategory;
-    protected int 				mDebugColor = Color.RED;
-    private DebugDrawingStyle   mDebugDrawingStyle = DebugDrawingStyle.FILLED;
-    protected PointF 			mDimensions = new PointF();
-    private int 				mId;
-    private boolean				mIsActive = true;
-    protected PointF 			mPosition = new PointF();
-    private SGWorld 			mWorld;
+//    protected RectF             mBBoxPadding = new RectF();
+//    protected RectF             mBoundingBox = new RectF();
+    private String				mCategory;//Define a categoria de entidade
+    protected int 				mDebugColor = Color.RED;//Desenha a aarea ocupada de red se executado como depuracao
+    private DebugDrawingStyle   mDebugDrawingStyle = DebugDrawingStyle.FILLED;//Estilo de desenho do retangulo
+    protected PointF 			mDimensions = new PointF();//LArgura e altura da entidade
+    private int 				mId;//Id dentro do jogo
+    private boolean				mIsActive = true;//Define se a entidade esta ativa
+    protected PointF 			mPosition = new PointF();//Posicao da entidade em relacao ao seu canto superior esquerdo
+    private SGWorld 			mWorld;//Referencia ao mundo ao qual a entidade pertence
 
     public SGEntity(SGWorld world, int id, String category, PointF position, PointF dimensions)
     {
@@ -37,6 +39,7 @@ public class SGEntity {
 
     }
 
+    //Movimenta a entidade de maneira relativa a sua posicao atual.
     public void move(float offsetX, float offsetY) {
         mPosition.x += offsetX;
         mPosition.y += offsetY;
@@ -60,13 +63,11 @@ public class SGEntity {
     public void                 setDimensions(PointF dimensions) { mDimensions.set(dimensions); }
     public void                 setIsActive(boolean isActive) { mIsActive = isActive; }
 
+    //Movimenta a entidade de maneira absoluta - Transporta a entidade para a posicao dos parametros
     public void                 setPosition(float x, float y)
     {
         mPosition.set(x, y);
     }
-
-    public void                 setPosition(PointF position)
-    {
-        mPosition.set(position);
+    public void                 setPosition(PointF position)  { mPosition.set(position);
     }
 }
