@@ -20,6 +20,7 @@ public class SGEntity {
         //Somente as bordas do retangulo
     };
 
+    private int                 mFlags;
     protected RectF             mBBoxPadding = new RectF();//BB == BoundingBox - Armazena o padding
     protected RectF             mBoundingBox = new RectF();//Caixa delimitadora - Area de colisao
     private String				mCategory;//Define a categoria de entidade
@@ -41,6 +42,22 @@ public class SGEntity {
 
         _updateBoundingBox();
 
+    }
+
+    public void addFlags(int flags)
+    {
+        mFlags |= flags;
+    }
+
+    public boolean hasFlag(int flag)
+    {
+        return (mFlags & flag) != 0;
+    }
+
+    public void removeFlags(int flags)
+    {
+        flags = ~flags;
+        mFlags &= flags;
     }
 
     //Movimenta a entidade de maneira relativa a sua posicao atual.
