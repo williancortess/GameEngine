@@ -18,6 +18,7 @@ public class SGRenderer {
     private Canvas mTempCanvas;
     private Paint mTempPaint = new Paint();
     private RectF mTempDstRect = new RectF();
+    private PointF	mTempPosition = new PointF();
 
     public SGRenderer() {	}
 
@@ -116,6 +117,22 @@ public class SGRenderer {
         else
         {
             drawRect(mTempDstRect, Color.RED);
+        }
+    }
+
+    //Desenho de texto na tela
+    public void drawText(SGText text, SGFont font, PointF position)
+    {
+        SGTileset fontTileSet = font.getTileSet();
+        char[] textChars = text.getCharacters();
+
+        mTempPosition.set(position);
+
+        for(int i = 0; i < textChars.length; i++)
+        {
+            Rect character = fontTileSet.getTile(textChars[i]);
+            drawImage(fontTileSet.getImage(), character, mTempPosition, font.getFontDimensions());
+            mTempPosition.x += font.getFontDimensions().x;
         }
     }
 
