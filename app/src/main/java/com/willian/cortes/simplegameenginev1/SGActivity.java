@@ -33,7 +33,7 @@ public class SGActivity extends Activity {
         mInputPublisher = inputPublisher;
     }
 
-    public SGInputPublisher getmInputPublisher(){return mInputPublisher;}
+    public SGInputPublisher getInputPublisher(){return mInputPublisher;}
 
     public enum SGOrientation {
         LANDSCAPE,

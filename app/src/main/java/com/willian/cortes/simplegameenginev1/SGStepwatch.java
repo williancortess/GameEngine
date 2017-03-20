@@ -13,7 +13,7 @@ public class SGStepwatch {
     protected long		mLastTime;//Ultimo tempo
     protected float		mElapsedTime;//Tempo transcorrido
 
-    protected float tick()
+    public float tick()
     {
         if(mCurrentTime == 0)
         {

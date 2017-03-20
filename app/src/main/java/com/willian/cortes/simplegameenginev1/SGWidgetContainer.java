@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 /**
  * Created by Willian on 12/03/2017.
+ *
+ * Elemento que nao possui representacao visual, servindo para agrupar os widgets
  */
 
 public class SGWidgetContainer extends SGWidget {
@@ -74,4 +76,80 @@ public class SGWidgetContainer extends SGWidget {
             mArea.set(Float.NaN, Float.NaN, Float.NaN, Float.NaN);
         }
     }
+
+    @Override
+    public boolean injectDown(PointF position)
+    {
+        for(HashMap.Entry<String, SGWidget> entry : mChildren.entrySet())
+        {
+            SGWidget widget = entry.getValue();
+
+            if(widget.isEnabled())
+            {
+                RectF area = widget.getArea();
+
+                if(position.x >= area.left && position.x <= area.right && position.y >= area.top && position.y <= area.bottom)
+                {
+                    if(entry.getValue().injectDown(position))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean injectUp(PointF position)
+    {
+        for(HashMap.Entry<String, SGWidget> entry : mChildren.entrySet())
+        {
+            SGWidget widget = entry.getValue();
+
+            if(widget.isEnabled())
+            {
+                RectF area = widget.getArea();
+
+                if(position.x >= area.left && position.x <= area.right && position.y >= area.top && position.y <= area.bottom)
+                {
+                    if(entry.getValue().injectUp(position))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void render(SGRenderer renderer)
+    {
+        for(HashMap.Entry<String, SGWidget> entry : mChildren.entrySet())
+        {
+            SGWidget widget = entry.getValue();
+
+            if(widget.isVisible())
+            {
+                widget.render(renderer);
+            }
+        }
+    }
+
+    @Override
+    public void update()
+    {
+        super.update();
+
+        for(HashMap.Entry<String, SGWidget> entry : mChildren.entrySet())
+        {
+            SGWidget widget = entry.getValue();
+            widget.update();
+        }
+
+        _updateArea();
+    }
+
+    public SGWidget getChild(String name) { return mChildren.get(name); }
 }

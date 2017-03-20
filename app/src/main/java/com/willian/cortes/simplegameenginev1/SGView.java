@@ -53,6 +53,7 @@ public class SGView extends View{
 
     protected void setup()
     {
+
     }
 
     public Point getDimensions() { return mDimensions; }
